@@ -16,15 +16,21 @@ module.exports = function(app)
 
     app.get('/agents', function(req, res) 
     {
-        db.listAgents().then(ret => {          
-        res.render('index', {title: "Agents list", data: ret})
+        db.listAgents().then(ret => {   
+            db.getGraphData().then(graph =>
+                {
+                    res.render('index', {title: "Agents list", data: ret, graphData: graph})
+                });   
     });
     });
 
     app.get('/freeAgents', function(req, res) 
     {
-        db.listFreeAgents().then(ret => {             
-            res.render('index', {title: "Free agents list", data: ret})
+        db.listFreeAgents().then(ret => {      
+            db.getGraphData().then(graph =>
+                {
+                    res.render('index', {title: "Free agents list", data: ret, graphData: graph})
+                });       
         })
     });
 
@@ -35,7 +41,10 @@ module.exports = function(app)
         let lastName = req.query.lastName;
         let pseudonym = req.query.pseudonym;
         db.addAgent(firstName, lastName, pseudonym );
-        res.render('index')
+        db.getGraphData().then(ret =>
+            {
+                res.render('index', {title: "Agent has been added", graphData: ret})
+            });    
     })
 
     app.get('/assignAgent', function(req, res) 
@@ -44,7 +53,11 @@ module.exports = function(app)
         let organisation = req.query.organisation;
         let task = req.query.task;
         db.assignAgent(pseudonym, organisation, task);
-        res.render('index', {title: 'Agent has been assigned'})
+        db.getGraphData().then(graph =>
+            {
+                res.render('index', {title: 'Agent has been assigned', graphData: graph})
+            });    
+        
     })
 
     app.get('/findConnections', function(req, res) 
@@ -53,15 +66,17 @@ module.exports = function(app)
 
         db.findConnections(organisation).then(ret => 
         {    
-            if(ret.length)
-            {
-                res.render('index', {data: ret, title: "List of connections with: " + organisation});
-            }
-            else
-            {
-                res.render('index', {title: "Connections with: " + organisation + " can not be found"});
-            }
-            
+            db.getGraphData().then(graph =>
+                {
+                    if(ret.length)
+                    {
+                        res.render('index', {data: ret, title: "List of connections with: " + organisation, graphData: graph});
+                    }
+                    else
+                    {
+                        res.render('index', {title: "Connections with: " + organisation + " can not be found", graphData: graph});
+                    }
+                });  
         })
     });
 
