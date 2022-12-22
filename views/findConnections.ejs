@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
+    <title>Manage agency</title>
+  </head>
+  <body>
+    <h1>Find people connected with organisation</h1>
+    <h3>
+        <form action="/findConnections">
+            <label for="organisation">Choose organisation:</label>
+            <select id="organisation" name="organisation">
+                <% organisations.forEach(function(item) 
+                { %>
+                  <option value=<%=item.get('name')%> ><%= item.get('name') %></option>
+                <% }); %>
+            </select><br>
+            <button type="submit">Find</button>
+        </form> 
+    </h3>
+  </body>
+</html>

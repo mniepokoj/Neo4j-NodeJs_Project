@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <title>Manage agency</title>
+  </head>
+  <body>
+    <h1>Manage agency</h1>
+    <h2>
+      <form action="/agents" method="GET">
+        <button type="submit">List of all agents</button>
+      </form>
+      <form action="/freeAgents" method="GET">
+        <button type="submit">List of free agents</button>
+      </form>
+      <form action="/addAgentForms">
+        <button type="submit">Add person</button>
+      </form>
+      <form action="/assignAgentForms">
+        <button type="submit">Assign agent</button>
+      </form>
+      <form action="/findConnectionsForms">
+        <button type="submit">Find connections</button>
+      </form>
+
+      <% if (typeof title !== 'undefined') 
+      { %><p><%= title %></p><% } %>
+
+      
+      <% if (typeof data !== 'undefined')
+      { %>
+        <h3>
+        <table>
+        <tr><th>First name</th><th>Last name</th><th>Pseudonym</th></tr>
+          <% data.forEach(function(item) 
+          { %>
+            <tr>
+            <td><%= item.get('firstName') %></td>
+            <td><%= item.get('lastName') %></td>
+            <td><%= item.get('pseudonym') %></td>
+            </tr>
+          <% }); %>
+        </table>
+    </h3>
+      <% } %>
+    
+    <% if (typeof graphData !== 'undefined') { %>
+      <div id="my-graph"></div>
+      <script type="text/javascript">
+        const container = document.getElementById('my-graph');
+        const options =   {edges: { arrows: 'to'},
+                          height: '100%',
+                          width: '100%'};
+        const network = new vis.Network(container,<%- JSON.stringify(graphData) %>, options);
+      </script>
+    <% } %>
+        
+
+    </h2>
+  </body>
+</html>

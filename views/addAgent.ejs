@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
+    <title>Manage agency</title>
+  </head>
+  <body>
+    <h1>Assign agent</h1>
+    <h3>
+        <form action="/addAgent">
+            <label for="firstName" style="display: inline-block; width: 200px">First name:</label>
+            <input type="text" name="firstName" pattern="[a-zA-Z]+"><br>
+            
+            <label for="lastName" style="display: inline-block; width: 200px">Last name:</label>
+            <input type="text" name="lastName" pattern="[a-zA-Z]+"><br>
+
+            <label for="pseudonym" style="display: inline-block; width: 200px">Pseudonym:</label>
+            <input type="text" name="pseudonym" pattern="[a-zA-Z0-9]+" required><br><br>
+
+            <button type="submit">Submit</button>
+        </form> 
+    </h3>
+  </body>
+</html>

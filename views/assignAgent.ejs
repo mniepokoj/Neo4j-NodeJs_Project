@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
+    <title>Manage agency</title>
+  </head>
+  <body>
+    <h1>Assign agent</h1>
+    <h3>
+        <form action="/assignAgent">
+            <label for="pseudonym">Choose a free Agent:</label>
+            <select id="pseudonym" name="pseudonym">
+                <% agents.forEach(function(item) 
+                { %>
+                  <option value=<%=item.get('pseudonym')%> ><%= item.get('pseudonym') %></option>
+                <% }); %>
+            </select><br>
+
+            <label for="organisation">Choose organisation:</label>
+            <select id="organisation" name="organisation">
+                <% organisations.forEach(function(item) 
+                { %>
+                  <option value=<%=item.get('name')%> ><%= item.get('name') %></option>
+                <% }); %>
+            </select><br>
+
+            <label for="task">Choose task:</label>
+            <select id="task" name="task">
+                <option value="Protect">Protect</option>
+                <option value="Spy">Spy</option>
+            </select><br>
+
+            <button type="submit">Submit</button>
+        </form> 
+    </h3>
+  </body>
+</html>
