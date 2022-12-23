@@ -33,7 +33,7 @@
 
         try {
             const readQuery = `MATCH (a:agent)
-                                WHERE NOT EXISTS ((a:agent)-[:Spying]->(:organisation)) AND
+                                WHERE NOT EXISTS ((a:agent)-[:Spy]->(:organisation)) AND
                                 NOT EXISTS ((a:agent)-[:Protect]->(:organisation))
                                 RETURN a.firstName AS firstName, a.lastName AS lastName, a.pseudonym AS pseudonym`;
 
@@ -77,7 +77,7 @@
         try {
             const executiveQuery = 'MATCH (a:agent {pseudonym: "'+pseudonym+'"})'+
             'MATCH (o:organisation {name: "' + organisation +'"})'+
-            'MERGE (a)->[rel:'+role+']->(o)'
+            'MERGE (a)-[rel:'+role+']->(o)'
             
             console.log(executiveQuery);
             const writeResult = await session.executeWrite(tx =>
@@ -133,7 +133,7 @@
 
         try {
             const result1 = await session.run('MATCH (n) RETURN n, labels(n) AS label');
-            const result2 = await session.run('MATCH ()-[r]-() RETURN r');
+            const result2 = await session.run('MATCH ()-[r]-() RETURN DISTINCT r');
 
             // 3. Convert the result into the format required by vis.js
             const nodes = [];

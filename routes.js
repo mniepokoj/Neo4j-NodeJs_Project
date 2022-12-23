@@ -52,11 +52,14 @@ module.exports = function(app)
         let pseudonym = req.query.pseudonym;
         let organisation = req.query.organisation;
         let task = req.query.task;
-        db.assignAgent(pseudonym, organisation, task);
-        db.getGraphData().then(graph =>
+        db.assignAgent(pseudonym, organisation, task).then(ret => 
             {
-                res.render('index', {title: 'Agent has been assigned', graphData: graph})
-            });    
+                db.getGraphData().then(graph =>
+                    {
+                        res.render('index', {title: 'Agent has been assigned', graphData: graph})
+                    });  
+        });
+  
         
     })
 

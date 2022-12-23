@@ -13,7 +13,7 @@
         <button type="submit">List of free agents</button>
       </form>
       <form action="/addAgentForms">
-        <button type="submit">Add person</button>
+        <button type="submit">Add agent</button>
       </form>
       <form action="/assignAgentForms">
         <button type="submit">Assign agent</button>
@@ -21,7 +21,10 @@
       <form action="/findConnectionsForms">
         <button type="submit">Find connections</button>
       </form>
-
+      <br>
+      <form action="/">
+        <button type="submit">Clear</button>
+      </form>
       <% if (typeof title !== 'undefined') 
       { %><p><%= title %></p><% } %>
 
@@ -53,6 +56,7 @@
         const network = new vis.Network(container,<%- JSON.stringify(graphData) %>, options);
       </script>
     <% } %>
+    
         
 
     </h2>
